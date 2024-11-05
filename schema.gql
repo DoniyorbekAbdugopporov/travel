@@ -1,0 +1,401 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Activity {
+  description: String!
+  duration: String!
+  id: ID!
+  name: String!
+  price: String!
+  travelId: Float!
+}
+
+type Admin {
+  email: String!
+  full_name: String!
+  hashed_password: String!
+  hashed_refresh_token: String!
+  id: ID!
+  is_active: Boolean!
+  is_creator: Boolean!
+  phone_number: String!
+  photo: String!
+  tg_link: String!
+}
+
+type Booking {
+  booking_date: DateTime!
+  discountId: Float!
+  end_date: DateTime!
+  id: ID!
+  start_date: DateTime!
+  status: String!
+  total_price: String!
+  userId: Float!
+}
+
+input CreateActivityDto {
+  description: String!
+  duration: String!
+  name: String!
+  price: String!
+  travelId: Float!
+}
+
+input CreateAdminDto {
+  confirm_password: String!
+  email: String!
+  full_name: String!
+  hashed_refresh_token: String
+  is_active: Boolean!
+  is_creator: Boolean!
+  password: String!
+  phone_number: String!
+  photo: String!
+  tg_link: String!
+}
+
+input CreateBookingDto {
+  booking_date: DateTime!
+  discountId: Float!
+  end_date: DateTime!
+  start_date: DateTime!
+  status: String!
+  total_price: String!
+  userId: Float!
+}
+
+input CreateDiscountDto {
+  code: String!
+  discount_type: String!
+  end_date: DateTime!
+  is_active: Boolean!
+  start_date: DateTime!
+  value: String!
+}
+
+input CreateHotelDto {
+  address: String!
+  available_rooms: Float!
+  bookingId: Float!
+  discountId: Float!
+  hotel_name: String!
+  image: String!
+  rating: Float!
+  total_rooms: Float!
+}
+
+input CreateImageDto {
+  description: String!
+  image: String!
+  travelId: Float!
+}
+
+input CreatePaymentDto {
+  amout: String!
+  bookingId: Float!
+  paymentMethodId: Float!
+  payment_date: DateTime!
+  status: String!
+}
+
+input CreatePaymentMethodDto {
+  description: String!
+  method_name: String!
+}
+
+input CreateReviewDto {
+  comment: String!
+  rating: Float!
+  review_date: DateTime!
+  travelId: Float!
+  userId: Float!
+}
+
+input CreateRoomDto {
+  description: String!
+  hotelId: Float!
+  price_per_night: String!
+  room_type: String!
+}
+
+input CreateTransactionLogDto {
+  bookingId: Float!
+  event_description: String!
+  event_type: String!
+  paymentId: Float!
+}
+
+input CreateUserDto {
+  activation_link: String
+  bio: String!
+  confirm_password: String!
+  email: String!
+  full_name: String!
+  hashed_refresh_token: String
+  is_active: Boolean!
+  password: String!
+  phone_number: String!
+  profile_image: String!
+  tg_link: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Discount {
+  code: String!
+  discount_type: String!
+  end_date: DateTime!
+  id: ID!
+  is_active: Boolean!
+  start_date: DateTime!
+  value: String!
+}
+
+type Hotel {
+  address: String!
+  available_rooms: Float!
+  bookingId: Float!
+  discountId: Float!
+  hotel_name: String!
+  id: ID!
+  image: String!
+  rating: Float!
+  total_rooms: Float!
+}
+
+type Image {
+  description: String!
+  id: ID!
+  image: String!
+  travelId: Float!
+}
+
+type Mutation {
+  createActivity(createActivity: CreateActivityDto!): Activity!
+  createAdmin(createAdmin: CreateAdminDto!): Admin!
+  createBooking(createBooking: CreateBookingDto!): Booking!
+  createDiscount(createDiscount: CreateDiscountDto!): Discount!
+  createHotel(createhotel: CreateHotelDto!): Hotel!
+  createImage(createImage: CreateImageDto!): Image!
+  createPayment(createPayment: CreatePaymentDto!): Payment!
+  createPaymentMethod(createPaymentMethod: CreatePaymentMethodDto!): PaymentMethod!
+  createReview(createreview: CreateReviewDto!): Review!
+  createRoom(createRoom: CreateRoomDto!): Room!
+  createTransactionLog(createTransactionLog: CreateTransactionLogDto!): TransactionLog!
+  createUser(createUser: CreateUserDto!): User!
+  removeActivity(id: ID!): Boolean!
+  removeAdmin(id: ID!): Boolean!
+  removeBooking(id: ID!): Boolean!
+  removeDiscount(id: ID!): Boolean!
+  removeHotel(id: ID!): Boolean!
+  removeImage(id: ID!): Boolean!
+  removePayment(id: ID!): Boolean!
+  removePaymentMethod(id: ID!): Boolean!
+  removeReview(id: ID!): Boolean!
+  removeRoom(id: ID!): Room!
+  removeTransactionLog(id: ID!): Boolean!
+  removeUser(id: ID!): Boolean!
+  updateActivity(id: ID!, updateActivity: UpdateActivityDto!): Activity!
+  updateAdmin(id: ID!, updateAdmin: UpdateAdminDto!): Admin!
+  updateBooking(id: ID!, updateBooking: UpdateBookingDto!): Booking!
+  updateDiscount(id: ID!, updateDiscount: UpdateDiscountDto!): Discount!
+  updateHotel(id: ID!, updateHotel: UpdateHotelDto!): Hotel!
+  updateImage(id: ID!, updateImage: UpdateImageDto!): Image!
+  updatePayment(id: ID!, updatePayment: UpdatePaymentDto!): Payment!
+  updatePaymentMethod(id: ID!, updatePaymentMethod: UpdatePaymentMethodDto!): PaymentMethod!
+  updateReview(id: ID!, updateReview: UpdateReviewDto!): Review!
+  updateRoom(id: ID!, updateRoom: UpdateRoomDto!): Room!
+  updateTransactionLog(id: ID!, updateTransactionLog: UpdateTransactionLogDto!): TransactionLog!
+  updateUser(id: ID!, updateUser: UpdateUserDto!): User!
+}
+
+type Payment {
+  amout: String!
+  bookingId: Float!
+  id: ID!
+  paymentMethodId: Float!
+  payment_date: DateTime!
+  status: String!
+}
+
+type PaymentMethod {
+  description: String!
+  id: ID!
+  method_name: String!
+}
+
+type Query {
+  findAllActivity: [Activity!]!
+  findAllAdmin: [Admin!]!
+  findAllBooking: [Booking!]!
+  findAllDiscount: [Discount!]!
+  findAllHotel: [Hotel!]!
+  findAllImage: [Image!]!
+  findAllPayment: [Payment!]!
+  findAllPaymentMethod: [PaymentMethod!]!
+  findAllReview: [Review!]!
+  findAllRoom: [Room!]!
+  findAllTransactionLog: [TransactionLog!]!
+  findAllUser: [User!]!
+  findOneActivity(id: ID!): Activity!
+  findOneAdmin(id: ID!): Admin!
+  findOneBooking(id: ID!): Booking!
+  findOneDiscount(id: ID!): Discount!
+  findOneHotel(id: ID!): Hotel!
+  findOneImage(id: ID!): Image!
+  findOnePayment(id: ID!): Payment!
+  findOnePaymentMethod(id: ID!): PaymentMethod!
+  findOneReview(id: ID!): Review!
+  findOneRoom(id: ID!): Room!
+  findOneTransactionLog(id: ID!): TransactionLog!
+  findOneUser(id: ID!): User!
+}
+
+type Review {
+  comment: String!
+  id: ID!
+  rating: Float!
+  review_date: DateTime!
+  travelId: Float!
+  userId: Float!
+}
+
+type Room {
+  description: String!
+  hotelId: Float!
+  id: ID!
+  price_per_night: String!
+  room_type: String!
+}
+
+type TransactionLog {
+  bookingId: Float!
+  event_description: String!
+  event_type: String!
+  id: ID!
+  paymentId: Float!
+}
+
+input UpdateActivityDto {
+  description: String
+  duration: String
+  name: String
+  price: String
+  travelId: Float
+}
+
+input UpdateAdminDto {
+  confirm_password: String
+  email: String
+  full_name: String
+  hashed_refresh_token: String
+  is_active: Boolean
+  is_creator: Boolean
+  password: String
+  phone_number: String
+  photo: String
+  tg_link: String
+}
+
+input UpdateBookingDto {
+  booking_date: DateTime
+  discountId: Float
+  end_date: DateTime
+  start_date: DateTime
+  status: String
+  total_price: String
+  userId: Float
+}
+
+input UpdateDiscountDto {
+  code: String
+  discount_type: String
+  end_date: DateTime
+  is_active: Boolean
+  start_date: DateTime
+  value: String
+}
+
+input UpdateHotelDto {
+  address: String
+  available_rooms: Float
+  bookingId: Float
+  discountId: Float
+  hotel_name: String
+  image: String
+  rating: Float
+  total_rooms: Float
+}
+
+input UpdateImageDto {
+  description: String
+  image: String
+  travelId: Float
+}
+
+input UpdatePaymentDto {
+  amout: String
+  bookingId: Float
+  paymentMethodId: Float
+  payment_date: DateTime
+  status: String
+}
+
+input UpdatePaymentMethodDto {
+  description: String
+  method_name: String
+}
+
+input UpdateReviewDto {
+  comment: String
+  rating: Float
+  review_date: DateTime
+  travelId: Float
+  userId: Float
+}
+
+input UpdateRoomDto {
+  description: String
+  hotelId: Float
+  price_per_night: String
+  room_type: String
+}
+
+input UpdateTransactionLogDto {
+  bookingId: Float
+  event_description: String
+  event_type: String
+  paymentId: Float
+}
+
+input UpdateUserDto {
+  activation_link: String
+  bio: String
+  confirm_password: String
+  email: String
+  full_name: String
+  hashed_refresh_token: String
+  is_active: Boolean
+  password: String
+  phone_number: String
+  profile_image: String
+  tg_link: String
+}
+
+type User {
+  bio: String!
+  email: String!
+  full_name: String!
+  hashed_password: String!
+  hashed_refresh_token: String!
+  id: ID!
+  is_active: Boolean!
+  phone_number: String!
+  profile_image: String!
+  tg_link: String!
+}
