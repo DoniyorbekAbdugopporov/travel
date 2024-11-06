@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { BookingsService } from './bookings.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
@@ -28,7 +40,7 @@ export class BookingsController {
   @ApiOperation({ summary: 'Bronlarni chiqarish' })
   @ApiResponse({
     status: 200,
-    description: 'bronlarni chiqarish',
+    description: 'Bronlarni chiqarish',
     type: [Booking],
   })
   @HttpCode(HttpStatus.OK)
@@ -47,6 +59,23 @@ export class BookingsController {
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Booking> {
     return this.bookingsService.findOne(id);
+  }
+
+  @ApiOperation({ summary: "Bronlarni vaqt oralig'ida chiqarish" })
+  @ApiResponse({
+    status: 200,
+    description: "Vaqt oralig'ida bronlarni chiqarish",
+    type: [Booking],
+  })
+  @HttpCode(HttpStatus.OK)
+  @Get('range')
+  async findBookingsBetweenDates(
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+  ): Promise<Booking[]> {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return this.bookingsService.findBookingsBetweenDates(start, end);
   }
 
   @ApiOperation({ summary: 'Bronni id orqli yangilash' })

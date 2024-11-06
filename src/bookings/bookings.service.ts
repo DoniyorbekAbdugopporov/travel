@@ -3,6 +3,7 @@ import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Booking } from './models/booking.entity';
+import { Op } from 'sequelize'; // Import Sequelize operators for range queries
 
 @Injectable()
 export class BookingsService {
@@ -23,7 +24,7 @@ export class BookingsService {
       include: { all: true },
     });
     if (!booking) {
-      throw new NotFoundException(`Booking ID "${id}" topilmadi`);
+      throw new NotFoundException(`Booking ID "${id}" not found`);
     }
     return booking;
   }
@@ -41,7 +42,7 @@ export class BookingsService {
     );
 
     if (affectedRows === 0) {
-      throw new NotFoundException(`Booking ID "${id}" yangilanmadi`);
+      throw new NotFoundException(`Booking ID "${id}" not updated`);
     }
 
     return updateBooking;
@@ -50,8 +51,29 @@ export class BookingsService {
   async remove(id: number): Promise<number> {
     const affectedRows = await this.bookingModel.destroy({ where: { id } });
     if (affectedRows === 0) {
-      throw new NotFoundException(`Booking ID "${id}" topilmadi`);
+      throw new NotFoundException(`Booking ID "${id}" not found`);
     }
     return affectedRows;
+  }
+
+  // Function to find bookings between two date-time ranges
+  async findBookingsBetweenDates(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<Booking[]> {
+    const bookings = await this.bookingModel.findAll({
+      where: {
+        booking_date: {
+          [Op.between]: [startDate, endDate], // Use Sequelize Op.between for range filtering
+        },
+      },
+      include: { all: true },
+    });
+
+    if (bookings.length === 0) {
+      throw new NotFoundException('No bookings found in the specified range');
+    }
+
+    return bookings;
   }
 }
