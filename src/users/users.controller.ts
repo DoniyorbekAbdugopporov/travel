@@ -26,6 +26,7 @@ import { CookieGetter } from 'src/common/decorators/cookie_getter.decorator';
 import { SignInUserDto } from './dto/singin-user.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { UserGuard } from 'src/common/guards/user.guard';
+import { AdminGuard } from 'src/common/guards/admin.guard';
 
 @ApiTags('User (Userlar)')
 @Controller('users')
@@ -208,6 +209,7 @@ export class UsersController {
     description: 'User nomini Id orqali yangilash',
     type: User,
   })
+  @UseGuards(UserGuard)
   @HttpCode(HttpStatus.OK)
   @Patch(':id')
   async update(
@@ -222,6 +224,7 @@ export class UsersController {
     status: 200,
     description: "User nomini Id orqali o'chirish",
   })
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @HttpCode(HttpStatus.OK)
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<number> {

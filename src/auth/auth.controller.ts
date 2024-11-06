@@ -14,7 +14,6 @@ import { AuthService } from './auth.service';
 import { CreateAdminDto } from '../admin/dto/create-admin.dto';
 import { SignInAdminDto } from './dto';
 import { Request, Response } from 'express';
-import { CreateUserDto } from 'src/users/dto';
 import { CreatorGuard } from '../common/guards/creator.guard';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 

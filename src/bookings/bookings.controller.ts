@@ -5,6 +5,7 @@ import { UpdateBookingDto } from './dto/update-booking.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Booking } from './models/booking.entity';
 import { UserGuard } from 'src/common/guards/user.guard';
+import { AdminGuard } from 'src/common/guards/admin.guard';
 
 @ApiTags('Bookings (Bronlar)')
 @Controller('bookings')
@@ -17,7 +18,7 @@ export class BookingsController {
     description: 'Bron qilish',
     type: Booking,
   })
-  @UseGuards(UserGuard)
+  @UseGuards(UserGuard, AdminGuard)
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(@Body() createBookingDto: CreateBookingDto): Promise<Booking> {
@@ -54,6 +55,7 @@ export class BookingsController {
     description: 'Bronni Id orqali yangilash',
     type: Booking,
   })
+  @UseGuards(UserGuard, AdminGuard)
   @HttpCode(HttpStatus.OK)
   @Patch(':id')
   async update(
@@ -69,6 +71,7 @@ export class BookingsController {
     description: 'Bronni Id orqali ochirish',
     type: Booking,
   })
+  @UseGuards(UserGuard, AdminGuard)
   @HttpCode(HttpStatus.OK)
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<number> {

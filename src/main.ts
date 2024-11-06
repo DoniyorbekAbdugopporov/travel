@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { WinstonModule } from 'nest-winston';
 import { winstonConfig } from './common/helpers/winston-logging';
-import { AllExceptionsFilter } from './logger/ali-exception';
+import { AllExceptionsFilter } from './logger/all-exception';
 
 async function startApp() {
   try {

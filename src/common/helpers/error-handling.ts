@@ -17,20 +17,16 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    // Status kodini aniqlash: HttpException bo‘lsa statusni olamiz, aks holda 500
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // Xatolik haqida batafsil loglash
     const errorMessage =
       exception instanceof HttpException ? exception.getResponse() : exception;
 
-    // Stack izlarini olish
     const stackTrace = exception instanceof Error ? exception.stack : null;
 
-    // Loggerga to'liq xatolikni yozish
     this.logger.error(
       `Status: ${status} - Error: ${JSON.stringify(errorMessage)} - Path: ${
         request.url
@@ -38,7 +34,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
       stackTrace,
     );
 
-    // Foydalanuvchiga javob qaytarish
     response.status(status).json({
       statusCode: status,
       message:
