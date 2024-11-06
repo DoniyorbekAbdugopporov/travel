@@ -9,12 +9,15 @@ import {
   HttpCode,
   HttpStatus,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Admin } from './models/admin.model';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { CreatorGuard } from 'src/common/guards/creator.guard';
 
 @ApiTags('Admin (Adminlar)')
 @Controller('admin')
@@ -27,6 +30,7 @@ export class AdminController {
     description: 'Admin qoshish',
     type: Admin,
   })
+  @UseGuards(JwtAuthGuard, CreatorGuard)
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(@Body() createAdminDto: CreateAdminDto): Promise<Admin> {
